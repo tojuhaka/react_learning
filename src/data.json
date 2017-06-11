@@ -1,0 +1,23 @@
+{
+  "subscription": {
+    "msisdn": "0456781234",
+    "subscription_type": "VOICE25",
+    "description": "12kk määräaikainen",
+    "monthly_fee": "0e/kk",
+    "sim_card": "1135806111300420167",
+    "sim_card_type": "Multi-USIM",
+    "imsi": "245551300042016",
+    "activation_time": "07.06.2016 03:44:50",
+    "active": true
+  },
+  "payer": {
+    "firstname": "Petteri",
+    "lastname": "Orpo"
+  },
+  "owner": {
+    "firstname": "Iisakki",
+    "lastname": "Orpo"
+  },
+  "user": "owner"
+
+}

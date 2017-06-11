@@ -1,0 +1,73 @@
+.App {
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.tab-content {
+  margin: 10px;
+}
+
+body {
+  padding : 10px ;
+
+}
+
+/********************************************************************/
+/*** PANEL PRIMARY ***/
+
+
+
+.nav-tabs {
+  background-color: #3071a9;
+  border-bottom: none;
+  margin-bottom: -1px;
+  padding: 5px 5px 0 5px;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+  border-color: transparent;
+}
+
+
+.main-nav {
+  margin: 10px;
+  background-color: #2F4858;
+}
+
+ul.nav {
+  padding-left: 3px;
+}
+
+
+.nav-tabs > li > a {
+  color: white;
+}
+.nav-tabs > li > a:hover {
+  color: #33658A;
+  cursor: pointer;
+  background-color: #86BBD8;
+}
+
+.nav-tabs > li > a.active {
+  color: #33658A;
+  background-color: white;
+}
+
