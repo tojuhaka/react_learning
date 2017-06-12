@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import {
-  TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Table, ModalHeader, ModalBody, ModalFooter, Button, Modal
+  TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Table, ModalHeader, ModalBody, ModalFooter, Button, Modal,
+  Progress
 } from 'reactstrap';
 import classnames from 'classnames';
 import myData from './data.json';
 import fourpane from './fourpane.json';
+import { CSSTransitionGroup } from 'react-transition-group'
 
 class EditPane extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class EditPane extends Component {
     let closeEdit = this.props.closeEdit;
     let value = this.props.value.toString();
     return (
-      <div>
+      <div className="editPaneContent">
         <Button color="danger" onClick={() => closeEdit()}>Sulje</Button>
         <div>{value}</div>
       </div>
@@ -79,6 +81,11 @@ class FTabContent extends Component {
 
     this.buttonDataEdit = {
       label: 'Muokkaa',
+      color: 'primary'
+    };
+
+    this.buttonDataEditOngoing = {
+      label: 'Muutos käynnissä',
       color: 'warning'
     };
 
@@ -103,7 +110,7 @@ class FTabContent extends Component {
   render() {
     if (this.state.editComponent === null) {
       return (<TabPane tabId={this.props.value.toString()}>
-        <Table>
+        <Table className="paneContent">
           <tbody>
           <tr>
             <th scope="row">Sopimusnumero</th>
@@ -121,7 +128,8 @@ class FTabContent extends Component {
             <th scope="row">Numero</th>
             <td>045123123</td>
             <td><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
-                            value={this.props.value} buttonData={this.buttonDataEdit}/></td>
+                            value={this.props.value} buttonData={this.buttonDataEditOngoing}/>
+            </td>
           </tr>
           </tbody>
         </Table>
@@ -193,10 +201,10 @@ class FourPane extends Component {
     super(props);
 
     this.state = {
-      bLeft: this.props.data['contract']['bottom-left'],
-      bRight: this.props.data['contract']['bottom-right'],
-      tLeft: this.props.data['contract']['top-left'],
-      tRight: this.props.data['contract']['top-right']
+      bLeft: this.props.data['bottom-left'],
+      bRight: this.props.data['bottom-right'],
+      tLeft: this.props.data['top-left'],
+      tRight: this.props.data['top-right']
     };
   }
 
@@ -207,7 +215,7 @@ class FourPane extends Component {
   render() {
 
     return (
-        <div>
+        <div className="pane">
           <Row>
             <Col xs="6" sm="6">{this.renderPane(this.state.tLeft)}</Col>
             <Col xs="6" sm="6">{this.renderPane(this.state.tRight)}</Col>
@@ -275,15 +283,14 @@ class App extends Component {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
-              {this.renderFourPane(fourpane)}
+              {this.renderFourPane(fourpane['contract'])}
           </TabPane>
             <TabPane tabId="2">
-              {this.renderFourPane(fourpane)}
+              {this.renderFourPane(fourpane['contract'])}
             </TabPane>
             <TabPane tabId="3">
-              {this.renderFourPane(fourpane)}
+              {this.renderFourPane(fourpane['customer'])}
             </TabPane>
-
           </TabContent>
         </div>
 

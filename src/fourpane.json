@@ -34,5 +34,42 @@
       ],
       "id": "tleft"
     }
+  },
+  "customer": {
+    "bottom-left": {
+      "tabs": [
+        {"label": "Estopalvelut", "id": "barring"},
+        {"label": "Lisäpalvelut", "id": "additional"},
+        {"label": "Luettelo", "id": "listing"},
+        {"label": "D estot", "id": "barrings"}
+      ],
+      "id": "bleft"
+    },
+    "bottom-right": {
+      "tabs": [
+        {"label": "Käyttörajat", "id": "limits"},
+        {"label": "Saldokysely", "id": "credit"},
+        {"label": "Perintä", "id": "nomoney"}
+      ],
+      "id": "bright"
+    },
+
+    "top-right": {
+      "tabs": [
+        {"label": "Asiakkaat", "id": "customers"}
+      ],
+      "id": "tright"
+    },
+
+    "top-left": {
+      "tabs": [
+        {"label": "Asiakas", "id": "customer"},
+        {"label": "Viestit", "id": "messages"},
+        {"label": "Hyvitykset", "id": "compensation"},
+        {"label": "Luotonhallinta", "id": "creditcontrol"},
+        {"label": "Valtakirja", "id": "warrant"}
+      ],
+      "id": "tleft"
+    }
   }
 }
