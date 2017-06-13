@@ -5,9 +5,10 @@ import {
   Progress
 } from 'reactstrap';
 import classnames from 'classnames';
-import myData from './data.json';
 import fourpane from './fourpane.json';
 import { CSSTransitionGroup } from 'react-transition-group'
+import SearchInput, {createFilter} from 'react-search-input'
+
 
 class EditPane extends Component {
   constructor(props) {
@@ -144,6 +145,46 @@ class FTabContent extends Component {
   }
 }
 
+
+const KEYS_TO_FILTERS = ['test', 'key', 'value']
+class SearchPane extends Component {
+  constructor(props) {
+    super(props);
+
+    this.emails = [
+      {'test': 1, 'key': 'lol', 'value': 'hello'},
+      {'test': 2, 'key': 'jim', 'value': 'hello'},
+      {'test': 3, 'key': 'lahey', 'value': 'hello'},
+      {'test': 4, 'key': 'bubbles', 'value': 'hello'},
+      {'test': 5, 'key': 'ray', 'value': 'hello'},
+      {'test': 6, 'key': 'julian', 'value': 'hello'},
+    ];
+    this.searchUpdated = this.searchUpdated.bind(this);
+    this.state = {
+      searchTerm: ''
+    }
+  }
+  searchUpdated (term) {
+    this.setState({searchTerm: term});
+  }
+  render () {
+    const filteredEmails = this.emails.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+    return (
+      <div>
+        <SearchInput className="search-input" onChange={this.searchUpdated} />
+        {filteredEmails.map(email => {
+          return (
+            <div className="mail" key={email.test}>
+              <div className="from">{email.key}</div>
+              <div className="subject">{email.value}</div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  };
+}
+
 class Pane extends Component {
   constructor(props) {
     super(props);
@@ -229,9 +270,34 @@ class FourPane extends Component {
   }
 }
 
+class B2BPane extends FourPane {
+  renderSearchPane() {
+    return (<SearchPane />);
+  };
+  render() {
+
+    return (
+      <div className="pane">
+        <Row>
+          <Col xs="6" sm="6">{this.renderPane(this.state.tLeft)}</Col>
+          <Col xs="6" sm="6">{this.renderPane(this.state.tRight)}</Col>
+        </Row>
+        <Row>
+          <Col xs="6" sm="6">{this.renderPane(this.state.bLeft)}</Col>
+          <Col xs="6" sm="6">{this.renderSearchPane()}</Col>
+        </Row>
+      </div>
+    );
+  }
+}
+
 class App extends Component {
   renderFourPane(data) {
     return (<FourPane data={data}/>);
+  };
+
+  renderB2BFourPane(data) {
+    return (<B2BPane data={data}/>);
   };
 
   constructor(props) {
@@ -239,8 +305,23 @@ class App extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      activeTab: '1'
+      activeTab: '1',
+      b2b: true
     };
+  }
+
+  toggleB2B(){
+    if (this.b2b === true) {
+      this.setState({
+        b2b: false
+      })
+    }
+    else {
+      this.setState({
+        b2b: true
+      })
+    }
+
   }
 
   toggle(tab) {
@@ -252,6 +333,12 @@ class App extends Component {
   }
 
   render() {
+
+    let customerPane = this.renderFourPane(fourpane['customer']);
+    if (this.state.b2b === true) {
+      customerPane = this.renderB2BFourPane(fourpane['customer'])
+    }
+
     return (
       <div className="App">
         <div>
@@ -289,7 +376,7 @@ class App extends Component {
               {this.renderFourPane(fourpane['contract'])}
             </TabPane>
             <TabPane tabId="3">
-              {this.renderFourPane(fourpane['customer'])}
+                {customerPane}
             </TabPane>
           </TabContent>
         </div>
