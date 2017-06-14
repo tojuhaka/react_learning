@@ -27,8 +27,6 @@
 }
 
 body {
-  padding : 10px ;
-
 }
 
 /********************************************************************/
@@ -72,6 +70,7 @@ ul.nav {
 }
 
 .paneContent {
+  width:100%;
   animation: fadein 1s;
   -moz-animation: fadein 1s; /* Firefox */
   -webkit-animation: fadein 1s; /* Safari and Chrome */
@@ -89,6 +88,25 @@ ul.nav {
   -webkit-animation: fadein 1s; /* Safari and Chrome */
   -o-animation: fadein 1s; /* Opera */
 }
+
+.memo-button {
+  color: white;
+  float: right;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.memo-button:hover {
+  color: orange;
+  float: right;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.memo-button-text {
+  font-size: 20px;
+}
+
 @keyframes fadein {
   from {
     opacity:0;

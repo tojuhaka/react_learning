@@ -1,6 +1,12 @@
 {
   "contract": {
     "bottom-left": {
+      "memos": [
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"}
+      ],
       "tabs": [
         {"label": "Estopalvelut", "id": "barring"},
         {"label": "Lisäpalvelut", "id": "additional"},
@@ -10,6 +16,13 @@
       "id": "bleft"
     },
     "bottom-right": {
+      "memos": [
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"},
+        {"user": "User123", "message": "this is a test mesage"}
+      ],
       "tabs": [
         {"label": "Käyttörajat", "id": "limits"},
         {"label": "Saldokysely", "id": "credit"},
@@ -19,6 +32,9 @@
     },
 
     "top-right": {
+      "memos": [
+        {"user": "User123", "message": "this is a test mesage"}
+      ],
       "tabs": [
         {"label": "Asiakkaat", "id": "customers"}
       ],
@@ -26,6 +42,8 @@
     },
 
     "top-left": {
+      "memos": [
+      ],
       "tabs": [
         {"label": "Liittymä", "id": "subscription"},
         {"label": "Kampanjant/alennukset", "id": "campaigns"},

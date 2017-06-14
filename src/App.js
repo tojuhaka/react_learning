@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './font-awesome-4.7.0/css/font-awesome.css';
 import {
   TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Table, ModalHeader, ModalBody, ModalFooter, Button, Modal,
   Progress
@@ -114,21 +115,21 @@ class FTabContent extends Component {
         <Table className="paneContent">
           <tbody>
           <tr>
-            <th scope="row">Sopimusnumero</th>
-            <td>147689</td>
-            <td><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
+            <th width="20%" scope="row">Sopimusnumero</th>
+            <td width="70%">147689</td>
+            <td width="10%" className="actionColumn"><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
                             value={this.props.value} buttonData={this.buttonDataDanger}/></td>
           </tr>
           <tr>
-            <th scope="row">Sopimustyyppi</th>
-            <td>Liittymän määräaikainen sopimus 12kk</td>
-            <td><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
+            <th width="20%" scope="row">Sopimustyyppi</th>
+            <td width="70%">Liittymän määräaikainen sopimus 12kk</td>
+            <td width="10%" className="actionColumn"><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
                             value={this.props.value} buttonData={this.buttonDataEdit}/></td>
           </tr>
           <tr>
-            <th scope="row">Numero</th>
-            <td>045123123</td>
-            <td><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
+            <th width="20%" scope="row">Numero</th>
+            <td width="70%">045123123</td>
+            <td width="10%" className="actionColumn"><EditAction renderEdit={this.renderEdit} closeEdit={this.closeEdit}
                             value={this.props.value} buttonData={this.buttonDataEditOngoing}/>
             </td>
           </tr>
@@ -195,6 +196,7 @@ class Pane extends Component {
     this.state = {
       activeTab: '0',
       paneId: this.data.id,
+      memos: this.data.memos
     };
   }
 
@@ -214,19 +216,31 @@ class Pane extends Component {
     }
   }
 
+  renderMemoButton(memos) {
+    return <div className="memo-button"> <span className="memo-button-text">{memos.length}x</span><i className="fa fa-book fa-fw fa-2x" aria-hidden="true" /></div>
+  }
+
   render() {
 
     let labels = [];
     let contents = [];
+    let menu = "";
 
     for (let i=0; i < this.data.tabs.length; i++) {
-      labels.push(this.renderTabLabel(i, this.state.activeTab, this.data.tabs[i], this.toggle))
+      labels.push(this.renderTabLabel(i, this.state.activeTab, this.data.tabs[i], this.toggle));
       contents.push(this.renderTabContent(i, this.state.activeTab))
     }
+    if (this.state.memos != undefined) {
+      if (this.state.memos.length != 0) {
+        menu = this.renderMemoButton(this.state.memos);
+      }
+    }
+
     return (
       <div>
         <Nav tabs>
           {labels}
+          {menu}
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           {contents}
@@ -300,13 +314,45 @@ class App extends Component {
     return (<B2BPane data={data}/>);
   };
 
+  renderApp() {
+
+    let customerPane = this.renderFourPane(fourpane['customer']);
+    if (this.state.b2b === true) {
+      customerPane = this.renderB2BFourPane(fourpane['customer'])
+    }
+
+    return (
+      <div container>
+        <Row>
+          <Col className="mainColumn" xs="12" sm="12">
+            <TabContent activeTab={this.state.activeTab}>
+              <TabPane tabId="1">
+                {this.renderFourPane(fourpane['contract'])}
+              </TabPane>
+              <TabPane tabId="2">
+                {this.renderFourPane(fourpane['contract'])}
+              </TabPane>
+              <TabPane tabId="3">
+                {customerPane}
+              </TabPane>
+            </TabContent>
+          </Col>
+        </Row>
+      </div>
+    )
+  }
+
+  renderMemos() {
+  }
+
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
-      b2b: true
+      b2b: true,
+      memos: false
     };
   }
 
@@ -324,6 +370,19 @@ class App extends Component {
 
   }
 
+  toggleMemos() {
+    if (this.b2b === true) {
+      this.setState({
+        memos: false
+      })
+    }
+    else {
+      this.setState({
+        memos: true
+      })
+    }
+  }
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -334,14 +393,9 @@ class App extends Component {
 
   render() {
 
-    let customerPane = this.renderFourPane(fourpane['customer']);
-    if (this.state.b2b === true) {
-      customerPane = this.renderB2BFourPane(fourpane['customer'])
-    }
 
     return (
       <div className="App">
-        <div>
           <Nav tabs className="main-nav">
             <NavItem>
               <NavLink
@@ -368,20 +422,8 @@ class App extends Component {
               </NavLink>
             </NavItem>
           </Nav>
-          <TabContent activeTab={this.state.activeTab}>
-            <TabPane tabId="1">
-              {this.renderFourPane(fourpane['contract'])}
-          </TabPane>
-            <TabPane tabId="2">
-              {this.renderFourPane(fourpane['contract'])}
-            </TabPane>
-            <TabPane tabId="3">
-                {customerPane}
-            </TabPane>
-          </TabContent>
-        </div>
-
-        </div>
+        {this.renderApp()}
+      </div>
     );
   }
 }
